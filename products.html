@@ -1,37 +1,235 @@
-<!-- products.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Products - GigBoard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, content="width=device-width, initial-scale=1.0" />
+  <title>GigBoard Marketplace</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+    body { background-color: #f7f7fb; color: #333; padding: 20px; }
+
+    /* Header styles */
+    header { display: flex; justify-content: space-between; align-items: center; }
+    header h1 { font-size: 28px; color: #6c4ee3; }
+
+    /* Cart icon */
+    .cart-icon { position: relative; cursor: pointer; font-size: 24px; }
+    .cart-count { position: absolute; top: -10px; right: -10px; background: red; color: white; font-size: 12px; padding: 2px 6px; border-radius: 50%; }
+
+    /* Navbar styles */
+    .navbar { display: flex; justify-content: space-between; align-items: center; border-radius: 10px; padding: 10px 20px; margin: 10px auto; color: black; background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+    .navbar .nav { list-style: none; display: flex; padding: 0; margin: 0; }
+    .navbar .nav-item { margin: 0 10px; }
+    .navbar a { text-decoration: none; color: black; padding: 10px; margin: 5px; transition: transform 0.2s; display: inline-block; }
+    .navbar a:hover { color: #0096c7; border-radius: 10px; transform: scale(1.1); }
+
+    /* Search bar styles */
+    .nav-search { display: flex; align-items: center; }
+    .nav-search input { padding: 6px 10px; border: 1px solid #ccc; border-radius: 8px; width: 200px; }
+
+    /* Main content area */
+    .main { display: flex; gap: 20px; margin-top: 20px; }
+
+    /* Sidebar */
+    .sidebar { width: 260px; background: #fff; border-radius: 8px; padding: 20px; border: 1px solid #ccc; }
+    .sidebar h3 { margin-bottom: 10px; font-size: 16px; }
+    .sidebar ul { list-style: none; padding-left: 0; }
+    .sidebar ul li { margin: 8px 0; color: #555; cursor: pointer; padding: 8px 10px; border-radius: 6px; transition: background 0.3s, color 0.3s; }
+    .sidebar ul li:hover { background-color: #e0e7ff; color: #3730a3; font-weight: 600; }
+
+    /* Price range styles */
+    .price-range { margin-top: 20px; padding: 10px; border-radius: 6px; background-color: #f9f9ff; transition: background 0.3s, color 0.3s; }
+    .price-range:hover { background-color: #e0e7ff; color: #3730a3; }
+    .price-range h3 { margin-bottom: 8px; font-size: 15px; }
+    .price-range input[type=range] { width: 100%; margin-top: 6px; }
+    .price-range p { font-size: 14px; margin-top: 5px; color: #444; }
+
+    /* Product cards */
+    .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; flex: 1; }
+    .card { background: #fff; border-radius: 8px; padding: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+    .card img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; }
+    .card h4 { font-size: 16px; margin: 10px 0 5px; }
+    .card .price { font-weight: 600; color: #6c4ee3; float: right; }
+    .card .seller { font-size: 13px; color: #777; }
+    .tags { display: flex; gap: 5px; flex-wrap: wrap; margin: 5px 0; }
+    .tags span { background: #f3f3f3; padding: 2px 6px; border-radius: 4px; font-size: 12px; color: #666; }
+    .rating { font-size: 13px; margin: 5px 0; color: #eab308; }
+    .card button { background: #8b5cf6; color: white; padding: 10px; border: none; border-radius: 6px; width: 100%; cursor: pointer; margin-top: 10px; }
+    .card button:hover { background: #7c3aed; }
+
+    /* Popup message styles */
+    .popup-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 15px 25px;
+      border-radius: 10px;
+      display: none;
+      font-size: 16px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      z-index: 1001;
+    }
+    .popup-message span {
+      font-weight: bold;
+    }
+
+    /* Cart modal */
+    .cart-modal { position: fixed; top: 80px; right: 20px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.2); width: 320px; display: none; z-index: 1000; }
+    .cart-modal h3 { margin-bottom: 10px; }
+    .cart-modal ul { list-style: none; max-height: 300px; overflow-y: auto; margin-bottom: 10px; padding-left: 0; }
+    .cart-modal li { margin: 5px 0; font-size: 14px; display: flex; justify-content: space-between; align-items: center; }
+    .cart-modal li span { margin-right: 10px; }
+    .cart-modal li button { background: #f87171; border: none; color: white; border-radius: 4px; padding: 2px 6px; cursor: pointer; font-size: 12px; }
+    .cart-total { font-weight: bold; margin-top: 10px; }
+    .checkout-btn { background: #10b981; color: white; padding: 10px; border: none; border-radius: 6px; width: 100%; cursor: pointer; }
+    .checkout-btn:hover { background: #059669; }
+  </style>
 </head>
 <body>
-    <div class="container mt-5">
-        <h2 class="section-title">Student Hustles & Products</h2>
-        <div class="row">
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Plushies">
-                    <div class="card-body">
-                        <h5 class="card-title">Crochet Plushies</h5>
-                        <p class="card-text">Handmade crochet animals by Anika. Soft and cute!</p>
-                        <a href="contact.html" class="btn btn-primary">Contact Seller</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Natural Soaps">
-                    <div class="card-body">
-                        <h5 class="card-title">Organic Soaps</h5>
-                        <p class="card-text">Natural handmade soaps with essential oils by Jerome (Biology Student).</p>
-                        <a href="contact.html" class="btn btn-primary">Contact Seller</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <header>
+    <h1>GigBoard</h1>
+    <div class="cart-icon" onclick="toggleCart()">
+      🛒<span class="cart-count" id="cart-count">0</span>
     </div>
+  </header>
+
+  <div class="navbar">
+    <ul class="nav">
+      <li class="nav-item"><a class="nav-link active" href="Index.html">Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="products.html">Products</a></li>
+      <li class="nav-item"><a class="nav-link" href="freelance.html">Freelance</a></li>
+      <li class="nav-item"><a class="nav-link" href="tutoring.html">Tutoring</a></li>
+      <li class="nav-item"><a class="nav-link" href="contactus.php">Contact Us</a></li>
+    </ul>
+    <div class="nav-search">
+      <input type="text" id="searchInput" placeholder="Search products..." oninput="handleSearch()">
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="sidebar">
+      <h3>Categories</h3>
+      <ul>
+        <li onclick="filterCategory('Design')">Design</li>
+        <li onclick="filterCategory('Photo')">Photo</li>
+        <li onclick="filterCategory('Crafts')">Crafts</li>
+        <li onclick="filterCategory('Jewlery')">HandMade Jewelry</li>
+        <li onclick="filterCategory('Digital')">Digital Products</li>
+      </ul>
+      <div class="price-range">
+        <h3>Price Range</h3>
+        <input type="range" id="priceRange" min="0" max="200" value="200" oninput="filterByPrice()">
+        <p>Up to $<span id="priceLabel">200</span></p>
+      </div>
+    </div>
+
+    <div class="products" id="productList"></div>
+  </div>
+
+  <div class="popup-message" id="popupMessage">
+    <span>Product added to cart successfully!</span>
+  </div>
+
+  <div class="cart-modal" id="cartModal">
+    <h3>Your Cart</h3>
+    <ul id="cartItems"></ul>
+    <div class="cart-total">Total: $<span id="cartTotal">0</span></div>
+    <button class="checkout-btn">Proceed to Checkout</button>
+  </div>
+
+  <script>
+    const products = [
+      { name: "Posters Design", price: 40, category: "Design", tags: ["branding", "graphic"], rating: 4.5, seller: "Sydonney", img: "Images/PosterDesign.jpg" },
+      { name: "Photography", price: 120, category: "Photo", tags: ["Photo", "Headshots"], rating: 4.8, seller: "Dustin", img: "Images/photography.jpg" },
+      { name: "Crochet", price: 60, category: "Crafts", tags: ["Clothing", "Art"], rating: 4.2, seller: "Krisan", img: "Images/crochet.jpeg" },
+      { name: "Video Editing", price: 50, category: "Design", tags: ["Tech", "Design"], rating: 4.9, seller: "Ashley", img: "Images/videoediting.avif" },
+      { name: "HandMade Beads", price: 30, category: "Jewlery", tags: ["Beads", "Jewlery", "HandMade"], rating: 5, seller: "Brittany", img: "Images/handmadebeads.jpg" },
+      { name: "Digital Products", price: 150, category: "Digital", tags: ["Design", "Tech","Digital"], rating: 5, seller: "Dwanda", img: "Images/digital products.jpg" },
+      { name: "HandMade Beads", price: 30, category: "Jewlery", tags: ["Beads", "Jewlery", "HandMade"], rating: 5, seller: "Brittany", img: "Images/wasitbead.jpg" },
+      { name: "HandMade Beads", price: 30, category: "Jewlery", tags: ["Beads", "Jewlery", "HandMade"], rating: 5, seller: "Brittany", img: "Images/bracelets.jpg" },
+      { name: "Digital Products", price: 150, category: "Digital", tags: ["Design", "Tech","Digital"], rating: 5, seller: "Dwanda", img: "Images/digital calender.jpg" },
+      { name: "Digital Products", price: 150, category: "Digital", tags: ["Design", "Tech","Digital"], rating: 5, seller: "Dwanda", img: "Images/digital planner.jpg" },
+      { name: "Crochet", price: 60, category: "Crafts", tags: ["Clothing", "Art"], rating: 4.2, seller: "Krisan", img: "Images/crochet hat.jpg" },
+      { name: "HandMade Beads", price: 30, category: "Jewlery", tags: ["Beads", "Jewlery", "HandMade"], rating: 5, seller: "Brittany", img: "Images/menbeaded.jpg" }
+    ];
+
+    let cart = [];
+    let filteredProducts = [...products];
+
+    function displayProducts(list) {
+      const container = document.getElementById("productList");
+      container.innerHTML = "";
+      list.forEach((product, index) => {
+        container.innerHTML += `
+          <div class="card">
+            <img src="${product.img}" alt="${product.name}" />
+            <h4>${product.name} <span class="price">$${product.price}</span></h4>
+            <p class="seller">By ${product.seller}</p>
+            <div class="tags">${product.tags.map(tag => `<span>${tag}</span>`).join('')}</div>
+            <div class="rating">⭐ ${product.rating}</div>
+            <button onclick="addToCart(${index})">Add to Cart</button>
+          </div>
+        `;
+      });
+    }
+
+    function addToCart(index) {
+      cart.push(filteredProducts[index]);
+      updateCart();
+      showPopupMessage();
+    }
+
+    function updateCart() {
+      document.getElementById("cart-count").textContent = cart.length;
+      const cartList = document.getElementById("cartItems");
+      cartList.innerHTML = "";
+      let total = 0;
+      cart.forEach((item, i) => {
+        total += item.price;
+        cartList.innerHTML += `<li><span>${item.name} - $${item.price}</span><button onclick="removeFromCart(${i})">Remove</button></li>`;
+      });
+      document.getElementById("cartTotal").textContent = total.toFixed(2);
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCart();
+    }
+
+    function toggleCart() {
+      const cartModal = document.getElementById("cartModal");
+      cartModal.style.display = cartModal.style.display === "block" ? "none" : "block";
+    }
+
+    function showPopupMessage() {
+      const popup = document.getElementById("popupMessage");
+      popup.style.display = "block";
+      setTimeout(() => popup.style.display = "none", 2000); // Hide after 2 seconds
+    }
+
+    function handleSearch() {
+      const query = document.getElementById("searchInput").value.toLowerCase();
+      filteredProducts = products.filter(p => p.name.toLowerCase().includes(query));
+      displayProducts(filteredProducts);
+    }
+
+    function filterCategory(category) {
+      filteredProducts = products.filter(p => p.category === category);
+      displayProducts(filteredProducts);
+    }
+
+    function filterByPrice() {
+      const price = document.getElementById("priceRange").value;
+      document.getElementById("priceLabel").textContent = price;
+      filteredProducts = products.filter(p => p.price <= price);
+      displayProducts(filteredProducts);
+    }
+
+    window.onload = () => displayProducts(products);
+  </script>
 </body>
 </html>
