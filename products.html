@@ -32,7 +32,7 @@
             <a class="nav-link" href="tutoring.html">Tutoring</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="contactus.php">Contact Us</a>
+            <a class="nav-link" href="contact.html">Contact A Seller</a>
         </li>
     </ul>
     <div class="nav-search">
@@ -53,8 +53,8 @@
       </ul>
       <div class="price-range">
         <h3>Price Range</h3>
-        <input type="range" id="priceRange" min="0" max="200" value="200" oninput="filterByPrice()">
-        <p>Up to $<span id="priceLabel">200</span></p>
+        <input type="range" id="priceRange" min="0" max="5000" value="5000" oninput="filterByPrice()">
+        <p>Up to $<span id="priceLabel">5,000</span></p>
       </div>
     </div>
 
@@ -74,18 +74,18 @@
 
   <script>
     const products = [
-      { name: "Posters Design", price: 40, category: "Design", tags: ["branding", "graphic"], rating: 4.5, seller: "Sydonney", img: "Images/PosterDesign.jpg" },
-      { name: "Photography", price: 120, category: "Photo", tags: ["Photo", "Headshots"], rating: 4.8, seller: "Dustin", img: "Images/photography.jpg" },
-      { name: "Crochet", price: 60, category: "Crafts", tags: ["Clothing", "Art"], rating: 4.2, seller: "Krisan", img: "Images/crochet.jpeg" },
-      { name: "Video Editing", price: 50, category: "Design", tags: ["Tech", "Design"], rating: 4.9, seller: "Ashley", img: "Images/videoediting.avif" },
-      { name: "HandMade Beads", price: 30, category: "Jewlery", tags: ["Beads", "Jewlery", "HandMade"], rating: 5, seller: "Brittany", img: "Images/handmadebeads.jpg" },
-      { name: "Digital Products", price: 150, category: "Digital", tags: ["Design", "Tech","Digital"], rating: 5, seller: "Dwanda", img: "Images/digital products.jpg" },
-      { name: "HandMade Beads", price: 30, category: "Jewlery", tags: ["Beads", "Jewlery", "HandMade"], rating: 5, seller: "Brittany", img: "Images/wasitbead.jpg" },
-      { name: "HandMade Beads", price: 30, category: "Jewlery", tags: ["Beads", "Jewlery", "HandMade"], rating: 5, seller: "Brittany", img: "Images/bracelets.jpg" },
-      { name: "Digital Products", price: 150, category: "Digital", tags: ["Design", "Tech","Digital"], rating: 5, seller: "Dwanda", img: "Images/digital calender.jpg" },
-      { name: "Digital Products", price: 150, category: "Digital", tags: ["Design", "Tech","Digital"], rating: 5, seller: "Dwanda", img: "Images/digital planner.jpg" },
-      { name: "Crochet", price: 60, category: "Crafts", tags: ["Clothing", "Art"], rating: 4.2, seller: "Krisan", img: "Images/crochet hat.jpg" },
-      { name: "HandMade Beads", price: 30, category: "Jewlery", tags: ["Beads", "Jewlery", "HandMade"], rating: 5, seller: "Brittany", img: "Images/menbeaded.jpg" }
+      { name: "Posters Design", price: 3000, category: "Design", tags: ["branding", "graphic"], rating: 4.5, seller: "Sydonney", img: "Images/PosterDesign.jpg" },
+      { name: "Photography", price: 500, category: "Photo", tags: ["Photo", "Headshots"], rating: 4.8, seller: "Dustin", img: "Images/photography.jpg" },
+      { name: "Crochet", price: 5000, category: "Crafts", tags: ["Clothing", "Art"], rating: 4.2, seller: "Krisan", img: "Images/crochet.jpeg" },
+      { name: "Video Editing", price: 5000, category: "Design", tags: ["Tech", "Design"], rating: 4.9, seller: "Ashley", img: "Images/videoediting.avif" },
+      { name: "HandMade Beads", price: 2500, category: "Jewlery", tags: ["Beads", "Jewlery", "HandMade"], rating: 5, seller: "Brittany", img: "Images/handmadebeads.jpg" },
+      { name: "Digital Products", price: 2750, category: "Digital", tags: ["Design", "Tech","Digital"], rating: 5, seller: "Dwanda", img: "Images/digital products.jpg" },
+      { name: "HandMade Beads", price: 1800, category: "Jewlery", tags: ["Beads", "Jewlery", "HandMade"], rating: 5, seller: "Brittany", img: "Images/wasitbead.jpg" },
+      { name: "HandMade Beads", price: 950, category: "Jewlery", tags: ["Beads", "Jewlery", "HandMade"], rating: 5, seller: "Brittany", img: "Images/bracelets.jpg" },
+      { name: "Digital Products", price: 1500, category: "Digital", tags: ["Design", "Tech","Digital"], rating: 5, seller: "Dwanda", img: "Images/digital calender.jpg" },
+      { name: "Digital Products", price: 3000, category: "Digital", tags: ["Design", "Tech","Digital"], rating: 5, seller: "Dwanda", img: "Images/digital planner.jpg" },
+      { name: "Crochet", price: 3300, category: "Crafts", tags: ["Clothing", "Art"], rating: 4.2, seller: "Krisan", img: "Images/crochet hat.jpg" },
+      { name: "HandMade Beads", price: 3050, category: "Jewlery", tags: ["Beads", "Jewlery", "HandMade"], rating: 5, seller: "Brittany", img: "Images/menbeaded.jpg" }
     ];
 
     let cart = [];
@@ -108,28 +108,37 @@
       });
     }
 
-    function addToCart(index) {
-      cart.push(filteredProducts[index]);
-      updateCart();
-      showPopupMessage();
-    }
+// Update the cart to save to localStorage
+function updateCart() {
+  document.getElementById("cart-count").textContent = cart.length;
+  const cartList = document.getElementById("cartItems");
+  cartList.innerHTML = "";
+  let total = 0;
+  cart.forEach((item, i) => {
+    total += item.price;
+    cartList.innerHTML += `<li><span>${item.name} - $${item.price}</span><button onclick="removeFromCart(${i})">Remove</button></li>`;
+  });
+  document.getElementById("cartTotal").textContent = total.toFixed(2);
+  localStorage.setItem("cart", JSON.stringify(cart)); // Save cart to localStorage
+}
 
-    function updateCart() {
-      document.getElementById("cart-count").textContent = cart.length;
-      const cartList = document.getElementById("cartItems");
-      cartList.innerHTML = "";
-      let total = 0;
-      cart.forEach((item, i) => {
-        total += item.price;
-        cartList.innerHTML += `<li><span>${item.name} - $${item.price}</span><button onclick="removeFromCart(${i})">Remove</button></li>`;
-      });
-      document.getElementById("cartTotal").textContent = total.toFixed(2);
-    }
+// Update addToCart to save to localStorage
+function addToCart(index) {
+  cart.push(filteredProducts[index]);
+  updateCart();
+  showPopupMessage();
+}
 
-    function removeFromCart(index) {
-      cart.splice(index, 1);
-      updateCart();
-    }
+// Update removeFromCart to save to localStorage
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  updateCart();
+}
+
+// Modify the checkout button in the cart modal
+document.querySelector(".checkout-btn").addEventListener("click", () => {
+  window.location.href = "checkout.html";
+});
 
     function toggleCart() {
       const cartModal = document.getElementById("cartModal");

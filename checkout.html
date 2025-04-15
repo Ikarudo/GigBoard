@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GigBoard Marketplace - Checkout</title>
+  <link rel="stylesheet" href="css/Styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header style="background: linear-gradient(to right, #4fd1c5, #667eea); padding-top: 25px; padding-left: 45px; padding-right: 55px;">
+    <h1>GigBoard</h1>
+    <div class="cart-icon" onclick="window.location.href='Index.html'">
+      🛒<span class="cart-count" id="cart-count">0</span>
+    </div>
+  </header>
+
+  <div class="navbar" style="background: linear-gradient(to right, #4fd1c5, #667eea);">
+    <ul class="nav justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link" href="Index.html">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="products.html">Products</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="freelance.html">Freelance</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="tutoring.html">Tutoring</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="contact.html">Contact A Seller</a>
+      </li>
+    </ul>
+    <div class="nav-search">
+      <input type="text" id="searchInput" placeholder="Search products..." disabled />
+    </div>
+  </div>
+
+  <div class="main" style="padding: 20px 15px; max-width: 1200px; margin: 0 auto;">
+    <h2 class="section-title">Checkout</h2>
+    <div class="cart-items" id="cartItems" style="border-top: 1px solid #e9ecef; padding-top: 20px;"></div>
+    <div style="display: flex; justify-content: flex-end; margin-top: 30px;">
+      <div style="width: 100%; max-width: 300px; text-align: right;">
+        <div class="cart-total" style="font-weight: bold; font-size: 1.5rem; margin-bottom: 15px;">
+          Total: $<span id="cartTotal">0</span>
+        </div>
+        <button class="checkout-btn" onclick="completeCheckout()" style="padding: 8px 16px; font-size: 1rem; width: 100%;">Complete Purchase</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="popup-message" id="popupMessage">
+    <span>Purchase completed successfully!</span>
+  </div>
+
+  <script>
+    // Retrieve cart from localStorage or initialize empty
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Add quantity property to cart items if not present
+    cart = cart.map(item => ({
+      ...item,
+      quantity: item.quantity || 1
+    }));
+
+    // Update cart count and display items on load
+    window.onload = () => {
+      updateCheckoutPage();
+    };
+
+    function updateCheckoutPage() {
+      // Update cart count
+      document.getElementById("cart-count").textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+      // Display cart items
+      const cartList = document.getElementById("cartItems");
+      cartList.innerHTML = "";
+      let total = 0;
+
+      if (cart.length === 0) {
+        cartList.innerHTML = '<p style="text-align: center; color: #555; font-size: 1.2rem;">Your cart is empty.</p>';
+      } else {
+        cart.forEach((item, index) => {
+          const itemTotal = item.price * item.quantity;
+          total += itemTotal;
+          cartList.innerHTML += `
+            <div class="card" style="display: flex; align-items: center; margin-bottom: 20px; padding: 20px; border-bottom: 1px solid #e9ecef;">
+              <img src="${item.img}" alt="${item.name}" style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; margin-right: 20px;" />
+              <div style="flex: 1;">
+                <h4 style="margin: 0 0 10px 0; font-size: 1.3rem; color: #333;">${item.name}</h4>
+                <p class="seller" style="margin: 0 0 10px 0; font-size: 0.95rem;">By ${item.seller}</p>
+                <div class="rating" style="margin-bottom: 10px;">⭐ ${item.rating}</div>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <label style="font-size: 0.95rem; color: #555;">Quantity:</label>
+                  <select onchange="updateQuantity(${index}, this.value)" style="padding: 5px; border: 1px solid #ccc; border-radius: 4px;">
+                    ${[...Array(10).keys()].map(i => `<option value="${i + 1}" ${item.quantity === i + 1 ? 'selected' : ''}>${i + 1}</option>`).join('')}
+                  </select>
+                </div>
+              </div>
+              <div style="text-align: right; min-width: 150px;">
+                <p style="margin: 0; font-weight: 600; font-size: 1.2rem; color: #6c4ee3;">$${itemTotal.toFixed(2)}</p>
+                <button onclick="removeFromCart(${index})" style="background: #f87171; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; margin-top: 15px;">Remove</button>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      // Update total
+      document.getElementById("cartTotal").textContent = total.toFixed(2);
+    }
+
+    function updateQuantity(index, quantity) {
+      cart[index].quantity = parseInt(quantity);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCheckoutPage();
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCheckoutPage();
+    }
+
+    function completeCheckout() {
+      if (cart.length === 0) {
+        showPopupMessage("Your cart is empty!");
+        return;
+      }
+      // Simulate purchase completion
+      cart = [];
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCheckoutPage();
+      showPopupMessage("Purchase completed successfully!");
+    }
+
+    function showPopupMessage(message) {
+      const popup = document.getElementById("popupMessage");
+      popup.querySelector("span").textContent = message || "Purchase completed successfully!";
+      popup.style.display = "block";
+      setTimeout(() => (popup.style.display = "none"), 2000);
+    }
+  </script>
+</body>
+</html>

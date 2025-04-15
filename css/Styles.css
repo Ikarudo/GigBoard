@@ -27,13 +27,14 @@ body {
 }
 
 .gigboard-contact {
-    max-width: 700px;
+    max-width: 50%;
     margin: 0 auto;
 }
 
 .gigboard-contact-card {
+    margin-top: 10vh;
     background-color: #ffffff;
-    border-radius: 1rem;
+    border-radius: 10rem;
     transition: box-shadow 0.3s ease;
 }
 
@@ -236,7 +237,7 @@ transform: scale(1.1);
       }
   
       .promo-button:hover {
-        background: #0096c7;
+        background: #004080;
       }
   
       .promo-image img {
@@ -383,4 +384,184 @@ transform: scale(1.1);
   .order-btn:hover {
     background-color: #e0f0ff;
     color: #004080;
+  }
+  .tutor-card {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+    background-color: #ffffff;
+    border-radius: 1rem;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+.tutor-image {
+    flex: 1 1 40%;
+    object-fit: cover;
+    height: 300px;
+    width: 300px;
+}
+.tutor-info {
+    flex: 1 1 60%;
+    padding: 2rem;
+}
+.tutor-alt {
+    flex-direction: row-reverse;
+}
+@media (max-width: 768px) {
+    .tutor-card {
+        flex-direction: column !important;
+    }
+
+    .tutor-image {
+        width: 100%;
+        height: auto;
+        max-height: none;
+    }
+
+    .tutor-info {
+        padding: 1.5rem 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .tutor-info h4 {
+        font-size: 1.25rem;
+    }
+
+    .tutor-info p,
+    .tutor-info strong {
+        font-size: 0.95rem;
+    }
+
+    .tutor-info a.btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .gigboard-logo {
+        max-height: 50px;
+    }
+
+    footer {
+        font-size: 0.9rem;
+    }
+}
+@media (min-width: 768px) {
+    .main {
+      flex-direction: row;
+    }
+  
+    .sidebar {
+      width: 220px;
+    }
+  
+    .products {
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+  
+    .navbar {
+      flex-wrap: nowrap;
+    }
+  
+    .navbar a {
+      font-size: 1rem;
+    }
+  
+    .hero {
+      padding: 60px 20px;
+    }
+  
+    .promo-banner {
+      flex-direction: row;
+      padding: 40px;
+    }
+  
+    .promo-content h1 {
+      font-size: 2.2rem;
+    }
+  
+    .frappuccino-list {
+      flex-direction: row;
+    }
+  
+    .tutor-card {
+      flex-direction: row;
+    }
+  
+    .tutor-image {
+      height: 250px;
+      width: 250px;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .sidebar {
+      width: 260px;
+    }
+  
+    .products {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+  
+    .container-headshot {
+      flex-direction: row;
+    }
+  
+    .container-headshot .left,
+    .container-headshot .right {
+      padding: 30px;
+    }
+  
+    .promo-content h1 {
+      font-size: 2.5rem;
+    }
+  
+    .tutor-image {
+      height: 300px;
+      width: 300px;
+    }
+  
+    .hero {
+      padding: 80px 20px;
+    }
+  }
+  
+  /* Small screens adjustments */
+  @media (max-width: 576px) {
+    .navbar a {
+      font-size: 0.8rem;
+      padding: 6px;
+    }
+  
+    .nav-search input {
+      width: 100%;
+      max-width: 140px;
+    }
+  
+    .card img {
+      height: 120px;
+    }
+  
+    .section-title {
+      font-size: 1.5rem;
+      margin-top: 40px;
+    }
+  
+    .promo-content h1 {
+      font-size: 1.5rem;
+    }
+  
+    .promo-content p {
+      font-size: 1rem;
+    }
+  
+    .container-headshot .left h1 {
+      font-size: 1.8em;
+    }
+  
+    .btn-book,
+    .order-btn {
+      padding: 10px 20px;
+      font-size: 0.9em;
+    }
   }
