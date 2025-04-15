@@ -1,46 +1,238 @@
-<!-- freelance.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Freelance Services - GigBoard</title>
-    <link rel="stylesheet" href="css/Styles.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Freelance Services | GigBoard</title>
+  <link rel="stylesheet" href="css/Styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+
+  </style>
 </head>
+
 <body>
-    <div class="container mt-5">
-        <h2 class="section-title">Freelance Services</h2>
-        <div class="row">
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Design">
-                    <div class="card-body">
-                        <h5 class="card-title">Logo & Branding</h5>
-                        <p class="card-text">High-quality logos and brand design by Samantha (CS Major).</p>
-                        <a href="contact.html" class="btn btn-primary">Contact Seller</a>
-                    </div>
-                </div>
+    <body>
+        <header style="background: linear-gradient(to right, #4fd1c5, #667eea); padding-top: 25px; padding-left: 45px; padding-right: 55px;">
+          <h1>GigBoard</h1>
+          <div class="cart-icon" onclick="toggleCart()">
+            🛒<span class="cart-count" id="cart-count">0</span>
+          </div>
+        </header>
+      
+        <div class="navbar" style="background: linear-gradient(to right, #4fd1c5, #667eea); padding-left: 30px; padding-right: 45px;">
+          <ul class="nav justify-content-center">
+              <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="Index.html">Home</a>
+              </li>
+      
+              <li class="nav-item">
+                  <a class="nav-link" href="products.html">Products</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="freelance.html">Freelance</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="tutoring.html">Tutoring</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="contactus.php">Contact Us</a>
+              </li>
+          </ul>
+          <div class="nav-search">
+              <input type="text" id="searchInput" placeholder="Search products..." oninput="handleSearch()">
             </div>
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Web Dev">
-                    <div class="card-body">
-                        <h5 class="card-title">Web Development</h5>
-                        <p class="card-text">Custom web apps using Laravel and React by Malik (IT Student).</p>
-                        <a href="contact.html" class="btn btn-primary">Contact Seller</a>
-                    </div>
-                </div>
-            </div>
+      </div>
+
+<!-- Video Editing Section-->
+<div class="container promo-banner">
+  <div class="promo-content">
+    <h1>Want to have a piece of Clothing Crotched?</h1>
+    <p>Have your clothing crotched to meet your niche by Krisan</p>
+    <a href="#" class="promo-button">Book Service</a>
+  </div>
+  <div class="promo-image">
+    <!--<img src="img/ashley.well.png" alt="Promotional Graphic" />-->
+  </div>
+</div>
+ <!-- Service Categories -->
+  <div class="container">
+    <h2 class="section-title">Browse Categories</h2>
+    <div class="row text-center">
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">💈Barber ✂</h5>
+            <p class="card-text">Haircuts, Fades, Line ups</p>
+            <a href="#" class="btn btn-primary">Book Service</a>
+          </div>
         </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">💁‍♀Hairdresser</h5>
+            <p class="card-text">Locs, Braids, Corn-rows</p>
+            <a href="#" class="btn btn-primary">Book Service</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">🚗 Shuttle Service</h5>
+            <p class="card-text">Shuttle Service in and around Mandeville</p>
+            <a href="#" class="btn btn-primary">Book Service</a>
+          </div>
+        </div>
+      </div>
     </div>
-    <footer class="bg-dark text-light p-4 text-center">
-        <p>&copy; 2025 GigBoard. All rights reserved.</p>
-        <small>
-            <a href="#" class="text-light text-decoration-none">About</a> | 
-            <a href="#" class="text-light text-decoration-none">Contact</a> | 
-            <a href="#" class="text-light text-decoration-none">Privacy</a>
-        </small>
-    </footer>
+  </div>
+ 
+
+  <!-- Professional Headshots Section -->
+  <div class="container container-headshot">
+    <div class="left">
+      <h1>Professional Headshots Anyone?</h1>
+      <p>Professional headshots make you stand out!<br /><strong>$500.00 JMD</strong> for 3 Professional Photos</p>
+
+      <div class="frappuccino-list">
+        <div class="frappuccino-card">
+          <img src="images/abou.jpeg" alt="Business" />
+          <p>For Businesses</p>
+        </div>
+        <div class="frappuccino-card">
+          <img src="images/IMG_7410 - Dwanda Pennants (2).jpeg" />
+          <p>For LinkedIn</p>
+        </div>
+        <div class="frappuccino-card">
+          <img src="images/ameliacoleheadshot.jpg"/>
+          <p>For Events</p>
+        </div>
+      </div>
+
+      <button class="btn-book">Book Service</button>
+    </div>
+
+    <div class="right">
+      <img src="images/Camera.png"  />
+      <h2>Contact Dustin Johnson Today!</h2>
+      <div class="stars">★★★★★</div>
+      <p>This service is available on Tuesdays and Thursdays </p>
+      <button class="order-btn"> I'm Interested</button>
+    </div>
+  </div>
+
+<!-- Featured Gigs Section -->
+<div id="featured-gigs" class="container mt-5">
+  <h2 class="section-title text-center mb-4 fw-bold">🎨 Graphic Editing Services</h2>
+  <div class="row g-4">
+    <div class="col-md-3">
+      <div class="card h-100 text-center shadow-sm">
+        <img src="images/canva.webp" class="card-img-top mx-auto mt-3 rounded-circle img-fluid" alt="Gig" style="width: 120px; height: 120px; object-fit: cover;" />
+        <div class="card-body d-flex flex-column justify-content-between">
+          <div>
+            <h5 class="card-title fw-semibold">Logo Design</h5>
+            <p class="card-text text-muted">Custom logos tailored to your brand.</p>
+          </div>
+          <div>
+            <p class="text-success fw-bold fs-5">$30</p>
+            <button class="btn btn-outline-primary w-100 fw-semibold">Hire</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card h-100 text-center shadow-sm">
+        <img src="images/vscodelogo.webp" class="card-img-top mx-auto mt-3 rounded-circle img-fluid" alt="Gig" style="width: 120px; height: 120px; object-fit: cover;" />
+        <div class="card-body d-flex flex-column justify-content-between">
+          <div>
+            <h5 class="card-title fw-semibold">Website Development</h5>
+            <p class="card-text text-muted">Modern & responsive site for your brand.</p>
+          </div>
+          <div>
+            <p class="text-success fw-bold fs-5">$100</p>
+            <button class="btn btn-outline-primary w-100 fw-semibold">Hire</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card h-100 text-center shadow-sm">
+        <img src="images/Instagram_logo_2022.svg.webp" class="card-img-top mx-auto mt-3 rounded-circle img-fluid" alt="Gig" style="width: 120px; height: 120px; object-fit: cover;" />
+        <div class="card-body d-flex flex-column justify-content-between">
+          <div>
+            <h5 class="card-title fw-semibold">Social Media Management</h5>
+            <p class="card-text text-muted">Boost engagement and brand awareness.</p>
+          </div>
+          <div>
+            <p class="text-success fw-bold fs-5">$50</p>
+            <button class="btn btn-outline-primary w-100 fw-semibold">Hire</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card h-100 text-center shadow-sm">
+        <img src="images/capcut.png" class="card-img-top mx-auto mt-3 rounded-circle img-fluid" alt="Gig" style="width: 120px; height: 120px; object-fit: cover;" />
+        <div class="card-body d-flex flex-column justify-content-between">
+          <div>
+            <h5 class="card-title fw-semibold">Video Editing</h5>
+            <p class="card-text text-muted">Professional video cuts & transitions.</p>
+          </div>
+          <div>
+            <p class="text-success fw-bold fs-5">$70</p>
+            <button class="btn btn-outline-primary w-100 fw-semibold">Hire</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Stylish CSS -->
+<style>
+#featured-gigs .card {
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+#featured-gigs .card:hover {
+  transform: translateY(-5px);
+  background-color: #0096c7;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  color: white;
+}
+
+#featured-gigs .card:hover .card-title,
+#featured-gigs .card:hover .card-text,
+#featured-gigs .card:hover .text-success {
+  color: white !important;
+}
+
+#featured-gigs .btn-outline-primary {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+#featured-gigs .card:hover .btn-outline-primary {
+  background-color: white;
+  color: #0096c7;
+  border-color: white;
+}
+</style> 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"></script>
+<footer class="bg-dark text-light p-4 text-center">
+  <p>&copy; 2025 GigBoard. All rights reserved.</p>
+  <small>
+      <a href="#" class="text-light text-decoration-none">About</a> | 
+      <a href="#" class="text-light text-decoration-none">Contact</a> | 
+      <a href="#" class="text-light text-decoration-none">Privacy</a>
+  </small>
+</footer>
+
 </body>
+
 </html>
